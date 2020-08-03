@@ -38,11 +38,31 @@ public class ExampleTest {
         listOfBooks.add(new Books("Core Java Volume I", "Cay S. Horstmann", 2007));
         StringBuilder result = new StringBuilder();
         for (Books book: listOfBooks) {
-            result.append("title:").append(book.getTitle()).append("\b").
-                    append("author:").append(book.getAuthor()).append("\b").
-                    append("publication year:").append(book.getPublicationYear()).append("\n");
+            result.append("title: ").append(book.getTitle()).
+                    append("author: ").append(book.getAuthor()).
+                    append("publication year: ").append(book.getPublicationYear()).append("\n");
         }
         BibliotecaApp newCustomer = new BibliotecaApp();
         assertEquals(result.toString(), newCustomer.viewAuthorAndPublicationYearOnAllBooks(listOfBooks));
     }
+
+    @Test
+    public void viewAMainMenuOfOptions() {
+        ArrayList<String> menuOfOptions = new ArrayList<String>();
+        String option1 = "List of books\n";
+        menuOfOptions.add(option1);
+        BibliotecaApp newCustomer = new BibliotecaApp();
+        assertEquals(option1, newCustomer.showAMainMenuOfOptions());
+    }
+
+//    @Test
+//    public void getNotifiedWhenChoseAnInvalidOption() {
+//        ArrayList<Books> listOfBooks = new ArrayList<Books>();
+//        listOfBooks.add(new Books("Head First Java", "Kathy Sierra, Bert Bates", 2003));
+//        listOfBooks.add(new Books("Effective Java", "Joshua Bloch", 2001));
+//        listOfBooks.add(new Books("Core Java Volume I", "Cay S. Horstmann", 2007));
+//        String NotifyMsg = "Please select a valid option!";
+//        BibliotecaApp newCustomer = new BibliotecaApp();
+//        assertEquals(NotifyMsg, newCustomer.chooseAnOption(listOfBooks));
+//    }
 }
