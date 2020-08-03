@@ -55,14 +55,4 @@ public class ExampleTest {
         assertEquals(option1, newCustomer.showAMainMenuOfOptions());
     }
 
-//    @Test
-//    public void getNotifiedWhenChoseAnInvalidOption() {
-//        ArrayList<Books> listOfBooks = new ArrayList<Books>();
-//        listOfBooks.add(new Books("Head First Java", "Kathy Sierra, Bert Bates", 2003));
-//        listOfBooks.add(new Books("Effective Java", "Joshua Bloch", 2001));
-//        listOfBooks.add(new Books("Core Java Volume I", "Cay S. Horstmann", 2007));
-//        String NotifyMsg = "Please select a valid option!";
-//        BibliotecaApp newCustomer = new BibliotecaApp();
-//        assertEquals(NotifyMsg, newCustomer.chooseAnOption(listOfBooks));
-//    }
 }
