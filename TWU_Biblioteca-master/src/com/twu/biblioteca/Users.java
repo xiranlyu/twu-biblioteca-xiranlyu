@@ -9,7 +9,7 @@ public class Users {
     private String email;
     private String phoneNumber;
     private boolean status = false;
-    private String onHoldItems;
+    private String holdingItems;
 
     public Users(String libraryNumber, String password, String name, String email, String phoneNumber) {
         this.libraryNumber = libraryNumber;
@@ -25,5 +25,5 @@ public class Users {
     public String getEmail() { return this.email; }
     public String getPhoneNumber() {return this.phoneNumber; }
     public void setStatus() { this.status = !this.status; }
-    public String getOnHoldItems() { return this.onHoldItems; }
+    public String getOnHoldItems() { return this.holdingItems; }
 }

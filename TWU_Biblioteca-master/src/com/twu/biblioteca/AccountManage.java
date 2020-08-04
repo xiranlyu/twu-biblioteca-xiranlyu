@@ -14,5 +14,12 @@ public class AccountManage {
 
     public List<Users> getUsers() { return users; }
 
+//    public void loginUser(String libraryNumber) {
+//        for (Users user: users) {
+//            if (libraryNumber.equals(user.getLibraryNumber())) {
+//                user.setStatus();
+//            }
+//        }
+//    }
 
 }

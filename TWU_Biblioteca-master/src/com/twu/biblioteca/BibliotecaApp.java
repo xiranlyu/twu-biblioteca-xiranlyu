@@ -1,12 +1,15 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BibliotecaApp {
     private final Library library;
     private final FilmArchive filmArchive;
     private final AccountManage accountManage;
+    private String currentUser;
+//    private List<BooksOnBorrow> borrowList = new ArrayList<>();
 
     public BibliotecaApp() {
         library = new Library();
@@ -18,7 +21,13 @@ public class BibliotecaApp {
         return library;
     }
     public FilmArchive getFilmArchive() { return filmArchive; }
-    public AccountManage getAccountManage() { return getAccountManage(); }
+    public AccountManage getAccountManage() { return accountManage; }
+    public String getCurrentUser() { return currentUser; }
+//    public List<BooksOnBorrow> getBorrowList() { return borrowList; }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
 
     public void welcome() {
         String welcomeMsg = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
@@ -26,17 +35,18 @@ public class BibliotecaApp {
     }
 
     public void userLogin() {
-        String loginMsg1 = "Please enter your library number:";
-        System.out.println(loginMsg1);
+        boolean userExists = false;
+        System.out.println("Please enter your library number:");
         Scanner in = new Scanner(System.in);
-        String input1 = in.nextLine();
+        String input1 = in.next();
         for (Users user: accountManage.getUsers()) {
             if (input1.equals(user.getLibraryNumber())) {
-                String loginMsg2 = "User found. Please enter your password:";
-                System.out.println(loginMsg2);
-                String input2 = in.nextLine();
+                userExists = true;
+                System.out.println("User found. Please enter your password:");
+                String input2 = in.next();
                 if (input2.equals(user.getPassword())) {
-                    user.setStatus();
+//                    accountManage.loginUser(input1);
+                    currentUser = user.getLibraryNumber();
                     System.out.println("You have logged in : )");
                     showAMainMenuOfOptions();
                     chooseAnOption();
@@ -45,10 +55,11 @@ public class BibliotecaApp {
                     System.out.println("Wrong password!");
                     userLogin();
                 }
-            } else {
-                System.out.println("Wrong library number!");
-                userLogin();
             }
+        }
+        if (!userExists) {
+            System.out.println("Wrong library number!");
+            userLogin();
         }
     }
 
@@ -127,8 +138,6 @@ public class BibliotecaApp {
             chooseAnOption();
         } else if (filmArchive.checkoutMovies(input)) {
             successfulCheckout();
-            showAMainMenuOfOptions();
-            chooseAnOption();
         } else {
             unsuccessfulCheckoutAMovie();
         }
@@ -145,10 +154,8 @@ public class BibliotecaApp {
         if (input.equals("0")) {
             showAMainMenuOfOptions();
             chooseAnOption();
-        } else if (library.checkoutBooks(input)) {
+        } else if (library.checkoutBooks(input, currentUser)) {
             successfulCheckout();
-            showAMainMenuOfOptions();
-            chooseAnOption();
         } else {
             unsuccessfulCheckoutABook();
         }
@@ -196,11 +203,19 @@ public class BibliotecaApp {
         returnBooks();
     }
 
+    public String getBorrowHistory(String libraryNumber) {
+        if (currentUser != null && currentUser.equals("admin")) {
+            return library.showBorrowedBooks(libraryNumber);
+        } else {
+            System.out.println("You are not authorized to view this.");
+            return "You are not authorized to view this.";
+        }
+    }
+
     public static void main(String[] args) {
         BibliotecaApp newCustomer = new BibliotecaApp();
         newCustomer.welcome();
         newCustomer.userLogin();
-//        newCustomer.showAMainMenuOfOptions();
-//        newCustomer.chooseAnOption();
+        newCustomer.getBorrowHistory("admin");
     }
 }

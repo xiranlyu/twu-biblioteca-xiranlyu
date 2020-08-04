@@ -10,8 +10,25 @@ public class Library {
             "9780132345286", 5), new Books("Core Java Volume I", "Cay S. Horstmann", 2007,
             "9780134177304", 4)));
 
+    private List<BooksOnBorrow> borrowedBooks = new ArrayList<>();
+
     public List<Books> getBooks() {
         return books;
+    }
+//    public List<BooksOnBorrow> getBorrowedBooks(String user) { return borrowedBooks;}
+
+    public String showBorrowedBooks(String user) {
+        StringBuilder result = new StringBuilder();
+        for (BooksOnBorrow borrowedBook: borrowedBooks) {
+            if (user.equals(borrowedBook.getLibraryNumber())) {
+                result.append("libraryNumber: ").append(user).
+                        append(" borrowed: ").append(borrowedBook.getTitle()).
+                        append(" isbn: ").append(borrowedBook.getIsbn()).
+                        append(" number of borrow: ").append(borrowedBook.getQuantity());
+            }
+        }
+        System.out.println(result.toString());
+        return result.toString();
     }
 
     public int getQuantityOfBook(String isbn) {
@@ -21,6 +38,15 @@ public class Library {
             }
         }
         return -1;
+    }
+
+    public String getBookTitle(String isbn) {
+        for (Books book: books) {
+            if (book.getIsbn().equals(isbn)) {
+                return book.getTitle();
+            }
+        }
+        return "";
     }
 
     public String showListOfBooks() {
@@ -43,10 +69,11 @@ public class Library {
         return result.toString();
     }
 
-    public boolean checkoutBooks(String isbn) {
+    public boolean checkoutBooks(String isbn, String user) {
         for (Books book: books) {
             if (isbn.equals(book.getIsbn()) && book.getQuantity() > 0) {
                 book.setQuantity(book.getQuantity() - 1);
+                borrowedBooks.add(new BooksOnBorrow(user, book.getTitle(), isbn, 1));
                 return true;
             }
         }
