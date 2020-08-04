@@ -6,9 +6,9 @@ import java.util.List;
 
 public class FilmArchive {
     private List<Movies> movies = new ArrayList<Movies>(Arrays.asList(new Movies("Interstellar", "Christopher Nolan", 2014,
-            9.4, "0816692"), new Movies("Billy Lynn's Long Halftime Walk", "Ang Lee", 2016,
-            8.4, "2513074"), new Movies("1917", "Sam Mendes", 2019,
-            8.5, "8579674")));
+            9.4, "0816692", 3), new Movies("Billy Lynn's Long Halftime Walk", "Ang Lee", 2016,
+            8.4, "2513074", 1), new Movies("1917", "Sam Mendes", 2019,
+            8.5, "8579674", 2)));
 
     public List<Movies> getMovies () {
         return movies;
@@ -25,5 +25,24 @@ public class FilmArchive {
         }
         System.out.println(result.toString());
         return result.toString();
+    }
+
+    public boolean checkoutMovies(String imdb) {
+        for (Movies movie: movies) {
+            if (imdb.equals(movie.getImdb()) && movie.getQuantity() > 0) {
+                movie.setQuantity(movie.getQuantity() - 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getQuantityOfMovie(String imdb) {
+        for (Movies movie: movies) {
+            if (movie.getImdb().equals(imdb)) {
+                return movie.getQuantity();
+            }
+        }
+        return -1;
     }
 }

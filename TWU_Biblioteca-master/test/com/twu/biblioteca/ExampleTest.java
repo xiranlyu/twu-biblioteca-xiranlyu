@@ -34,9 +34,12 @@ public class ExampleTest {
         String option1 = "1 List of books\n";
         String option2 = "2 Checkout a book\n";
         String option3 = "3 Return a book\n";
-        String option4 = "4 Exit\n";
+        String option4 = "4 List of movies\n";
+        String option5 = "5 Checkout a movie\n";
+        String option6 = "6 Exit\n";
         BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals(option1 + option2 + option3 + option4, newCustomer.showAMainMenuOfOptions());
+        assertEquals(option1 + option2 + option3 + option4 + option5 + option6,
+                newCustomer.showAMainMenuOfOptions());
     }
 
     @Test
@@ -62,4 +65,10 @@ public class ExampleTest {
                 "title: 1917 director: Sam Mendes year: 2019 rating: 8.5 IMDB: 8579674\n", newCustomer.showListOfMovies());
     }
 
+    @Test
+    public void checkoutAMovie() {
+        BibliotecaApp newCustomer = new BibliotecaApp();
+        newCustomer.getFilmArchive().checkoutMovies("2513074");
+        assertEquals(0, newCustomer.getFilmArchive().getQuantityOfMovie("2513074"));
+    }
 }
