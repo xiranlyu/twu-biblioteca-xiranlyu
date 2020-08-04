@@ -6,20 +6,50 @@ import java.util.Scanner;
 public class BibliotecaApp {
     private final Library library;
     private final FilmArchive filmArchive;
+    private final AccountManage accountManage;
+
+    public BibliotecaApp() {
+        library = new Library();
+        filmArchive = new FilmArchive();
+        accountManage = new AccountManage();
+    }
 
     public Library getLibrary() {
         return library;
     }
     public FilmArchive getFilmArchive() { return filmArchive; }
-
-    public BibliotecaApp() {
-        library = new Library();
-        filmArchive = new FilmArchive();
-    }
+    public AccountManage getAccountManage() { return getAccountManage(); }
 
     public void welcome() {
         String welcomeMsg = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
         System.out.println(welcomeMsg);
+    }
+
+    public void userLogin() {
+        String loginMsg1 = "Please enter your library number:";
+        System.out.println(loginMsg1);
+        Scanner in = new Scanner(System.in);
+        String input1 = in.nextLine();
+        for (Users user: accountManage.getUsers()) {
+            if (input1.equals(user.getLibraryNumber())) {
+                String loginMsg2 = "User found. Please enter your password:";
+                System.out.println(loginMsg2);
+                String input2 = in.nextLine();
+                if (input2.equals(user.getPassword())) {
+                    user.setStatus();
+                    System.out.println("You have logged in : )");
+                    showAMainMenuOfOptions();
+                    chooseAnOption();
+                    break;
+                } else {
+                    System.out.println("Wrong password!");
+                    userLogin();
+                }
+            } else {
+                System.out.println("Wrong library number!");
+                userLogin();
+            }
+        }
     }
 
     public String showListOfBooks(){
@@ -169,7 +199,8 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         BibliotecaApp newCustomer = new BibliotecaApp();
         newCustomer.welcome();
-        newCustomer.showAMainMenuOfOptions();
-        newCustomer.chooseAnOption();
+        newCustomer.userLogin();
+//        newCustomer.showAMainMenuOfOptions();
+//        newCustomer.chooseAnOption();
     }
 }
