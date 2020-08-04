@@ -39,8 +39,8 @@ public class ExampleTest {
         StringBuilder result = new StringBuilder();
         for (Books book: listOfBooks) {
             result.append("title: ").append(book.getTitle()).
-                    append("author: ").append(book.getAuthor()).
-                    append("publication year: ").append(book.getPublicationYear()).append("\n");
+                    append(" author: ").append(book.getAuthor()).
+                    append(" publication year: ").append(book.getPublicationYear()).append("\n");
         }
         BibliotecaApp newCustomer = new BibliotecaApp();
         assertEquals(result.toString(), newCustomer.viewAuthorAndPublicationYearOnAllBooks(listOfBooks));
@@ -50,9 +50,14 @@ public class ExampleTest {
     public void viewAMainMenuOfOptions() {
         ArrayList<String> menuOfOptions = new ArrayList<String>();
         String option1 = "List of books\n";
+        String option2 = "Exit\n";
         menuOfOptions.add(option1);
+        menuOfOptions.add(option2);
+        StringBuilder menu = new StringBuilder();
+        for (String option: menuOfOptions) {
+            menu.append(option);
+        }
         BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals(option1, newCustomer.showAMainMenuOfOptions());
+        assertEquals(menu.toString(), newCustomer.showAMainMenuOfOptions());
     }
-
 }
