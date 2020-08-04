@@ -14,12 +14,17 @@ public class AccountManage {
 
     public List<Users> getUsers() { return users; }
 
-//    public void loginUser(String libraryNumber) {
-//        for (Users user: users) {
-//            if (libraryNumber.equals(user.getLibraryNumber())) {
-//                user.setStatus();
-//            }
-//        }
-//    }
+    public String showUserInfo(String libraryNumber) {
+        StringBuilder result = new StringBuilder();
+        for (Users user: users) {
+            if (libraryNumber.equals(user.getLibraryNumber())) {
+                result.append("name: ").append(user.getName()).
+                        append(" email: ").append(user.getEmail()).
+                        append(" phone number: ").append(user.getPhoneNumber());
+            }
+        }
+        System.out.println(result.toString());
+        return result.toString();
+    }
 
 }

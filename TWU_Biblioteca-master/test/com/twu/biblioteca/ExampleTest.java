@@ -8,13 +8,6 @@ import static org.junit.Assert.assertEquals;
 
 public class ExampleTest {
 
-//    @Test
-//    public void viewWelcomeMessage() {
-//        String expectedMsg = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-//        BibliotecaApp newCustomer = new BibliotecaApp();
-//        assertEquals(expectedMsg, newCustomer.welcome());
-//    }
-
     @Test
     public void viewListOfBooks() {
         BibliotecaApp newCustomer = new BibliotecaApp();
@@ -36,9 +29,10 @@ public class ExampleTest {
         String option3 = "3 Return a book\n";
         String option4 = "4 List of movies\n";
         String option5 = "5 Checkout a movie\n";
-        String option6 = "6 Exit\n";
+        String option6 = "6 View my info\n";
+        String option7 = "7 Exit\n";
         BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals(option1 + option2 + option3 + option4 + option5 + option6,
+        assertEquals(option1 + option2 + option3 + option4 + option5 + option6 + option7,
                 newCustomer.showAMainMenuOfOptions());
     }
 
@@ -79,5 +73,13 @@ public class ExampleTest {
         newCustomer.getLibrary().checkoutBooks("9780596004651", "admin");
         assertEquals("libraryNumber: admin borrowed: Head First Java isbn: 9780596004651 number of borrow: 1",
                 newCustomer.getBorrowHistory("admin"));
+    }
+
+    @Test
+    public void viewUserInfo() {
+        BibliotecaApp newCustomer = new BibliotecaApp();
+        newCustomer.setCurrentUser("admin");
+        assertEquals("name: admin email: admin@biblioteca.com phone number: 00000000000",
+                newCustomer.showUserInfo());
     }
 }

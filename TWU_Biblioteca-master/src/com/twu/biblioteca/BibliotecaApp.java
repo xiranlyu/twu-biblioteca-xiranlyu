@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class BibliotecaApp {
@@ -9,7 +8,6 @@ public class BibliotecaApp {
     private final FilmArchive filmArchive;
     private final AccountManage accountManage;
     private String currentUser;
-//    private List<BooksOnBorrow> borrowList = new ArrayList<>();
 
     public BibliotecaApp() {
         library = new Library();
@@ -21,9 +19,6 @@ public class BibliotecaApp {
         return library;
     }
     public FilmArchive getFilmArchive() { return filmArchive; }
-    public AccountManage getAccountManage() { return accountManage; }
-    public String getCurrentUser() { return currentUser; }
-//    public List<BooksOnBorrow> getBorrowList() { return borrowList; }
 
     public void setCurrentUser(String currentUser) {
         this.currentUser = currentUser;
@@ -45,7 +40,6 @@ public class BibliotecaApp {
                 System.out.println("User found. Please enter your password:");
                 String input2 = in.next();
                 if (input2.equals(user.getPassword())) {
-//                    accountManage.loginUser(input1);
                     currentUser = user.getLibraryNumber();
                     System.out.println("You have logged in : )");
                     showAMainMenuOfOptions();
@@ -82,13 +76,15 @@ public class BibliotecaApp {
         String option3 = "3 Return a book";
         String option4 = "4 List of movies";
         String option5 = "5 Checkout a movie";
-        String option6 = "6 Exit";
+        String option6 = "6 View my info";
+        String option7 = "7 Exit";
         menuOfOptions.add(option1);
         menuOfOptions.add(option2);
         menuOfOptions.add(option3);
         menuOfOptions.add(option4);
         menuOfOptions.add(option5);
         menuOfOptions.add(option6);
+        menuOfOptions.add(option7);
         StringBuilder result = new StringBuilder();
         for (String option: menuOfOptions) {
             result.append(option).append("\n");
@@ -122,6 +118,9 @@ public class BibliotecaApp {
                 checkOutMovies();
                 break;
             } else if (input.contains("6")) {
+                showUserInfo();
+                break;
+            } else if (input.contains("7")) {
                 quitTheApplication();
             } else {
                 System.out.println("Please select a valid option!");
@@ -175,22 +174,19 @@ public class BibliotecaApp {
         checkOutMovies();
     }
 
-    public boolean returnBooks() {
+    public void returnBooks() {
         System.out.println("Please input the ISBN of the book to be returned, or input 0 to see the main menu: ");
         Scanner in = new Scanner(System.in);
         String input = in.next();
         if (input.equals("0")) {
             showAMainMenuOfOptions();
             chooseAnOption();
-            return false;
         } else if (library.returnBooks(input)) {
             successfulReturn();
             showAMainMenuOfOptions();
             chooseAnOption();
-            return true;
         } else {
             unsuccessfulReturn();
-            return false;
         }
     }
 
@@ -212,10 +208,16 @@ public class BibliotecaApp {
         }
     }
 
+    public String showUserInfo() {
+        if (currentUser != null) {
+            return accountManage.showUserInfo(currentUser);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         BibliotecaApp newCustomer = new BibliotecaApp();
         newCustomer.welcome();
         newCustomer.userLogin();
-        newCustomer.getBorrowHistory("admin");
     }
 }

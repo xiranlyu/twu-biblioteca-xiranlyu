@@ -12,11 +12,6 @@ public class Library {
 
     private List<BooksOnBorrow> borrowedBooks = new ArrayList<>();
 
-    public List<Books> getBooks() {
-        return books;
-    }
-//    public List<BooksOnBorrow> getBorrowedBooks(String user) { return borrowedBooks;}
-
     public String showBorrowedBooks(String user) {
         StringBuilder result = new StringBuilder();
         for (BooksOnBorrow borrowedBook: borrowedBooks) {
@@ -38,15 +33,6 @@ public class Library {
             }
         }
         return -1;
-    }
-
-    public String getBookTitle(String isbn) {
-        for (Books book: books) {
-            if (book.getIsbn().equals(isbn)) {
-                return book.getTitle();
-            }
-        }
-        return "";
     }
 
     public String showListOfBooks() {
