@@ -5,19 +5,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Library {
-    private List<Books> books = new ArrayList<>();
-//
-//    public List<Books> getBooks() {
-//        return books;
-//    }
+    private List<Books> books = new ArrayList<>(Arrays.asList(new Books("Head First Java", "Kathy Sierra, Bert Bates", 2003,
+            "9780596004651", 5), new Books("Effective Java", "Joshua Bloch", 2001,
+            "9780132345286", 5), new Books("Core Java Volume I", "Cay S. Horstmann", 2007,
+            "9780134177304", 4)));
 
-    public void addBooks(Books book) {
-        books.add(book);
+    public List<Books> getBooks() {
+        return books;
     }
-
-//    public void addAll(Books ...books) {
-//        this.books.addAll(Arrays.asList(books));
-//    }
 
     public String showListOfBooks() {
         StringBuilder list = new StringBuilder();
@@ -35,7 +30,7 @@ public class Library {
                     append(" author: ").append(book.getAuthor()).
                     append(" publication year: ").append(book.getPublicationYear()).append("\n");
         }
+        System.out.println(result.toString());
         return result.toString();
     }
-
 }
