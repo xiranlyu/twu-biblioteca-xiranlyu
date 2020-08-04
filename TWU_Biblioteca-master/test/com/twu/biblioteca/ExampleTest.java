@@ -24,7 +24,6 @@ public class ExampleTest {
     @Test
     public void viewAuthorAndPublicationYearOnAllBooks() {
         BibliotecaApp newCustomer = new BibliotecaApp();
-        StringBuilder result = new StringBuilder();
         assertEquals("title: Head First Java author: Kathy Sierra, Bert Bates publication year: 2003\n" +
                 "title: Effective Java author: Joshua Bloch publication year: 2001\n" +
                 "title: Core Java Volume I author: Cay S. Horstmann publication year: 2007\n", newCustomer.viewAuthorAndPublicationYearOnAllBooks());
@@ -54,4 +53,13 @@ public class ExampleTest {
         newCustomer.getLibrary().returnBooks("9780132345286");
         assertEquals(5, newCustomer.getLibrary().getQuantityOfBook("9780132345286"));
     }
+
+    @Test
+    public void viewMovieList() {
+        BibliotecaApp newCustomer = new BibliotecaApp();
+        assertEquals("title: Interstellar director: Christopher Nolan year: 2014 rating: 9.4 IMDB: 0816692\n" +
+                "title: Billy Lynn's Long Halftime Walk director: Ang Lee year: 2016 rating: 8.4 IMDB: 2513074\n" +
+                "title: 1917 director: Sam Mendes year: 2019 rating: 8.5 IMDB: 8579674\n", newCustomer.showListOfMovies());
+    }
+
 }

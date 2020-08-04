@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class BibliotecaApp {
     private Library library;
+    private FilmArchive filmArchive;
 
     public Library getLibrary() {
         return library;
@@ -12,6 +13,7 @@ public class BibliotecaApp {
 
     public BibliotecaApp() {
         library = new Library();
+        filmArchive = new FilmArchive();
     }
 
     public void welcome() {
@@ -21,6 +23,10 @@ public class BibliotecaApp {
 
     public String showListOfBooks(){
         return library.showListOfBooks();
+    }
+
+    public String showListOfMovies(){
+        return filmArchive.showMovieList();
     }
 
     public String viewAuthorAndPublicationYearOnAllBooks(){
@@ -132,7 +138,6 @@ public class BibliotecaApp {
         newCustomer.welcome();
         newCustomer.showAMainMenuOfOptions();
         newCustomer.chooseAnOption();
-        System.out.println(newCustomer.getLibrary().getQuantityOfBook("9780134177304"));
-        System.out.println(newCustomer.getLibrary().getQuantityOfBook("9780132345286"));
+        newCustomer.showListOfMovies();
     }
 }
