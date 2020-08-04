@@ -32,17 +32,26 @@ public class ExampleTest {
 
     @Test
     public void viewAMainMenuOfOptions() {
-        String option1 = "List of books\n";
-        String option2 = "Exit\n";
+        String option1 = "1 List of books\n";
+        String option2 = "2 Checkout a book\n";
+        String option3 = "3 Return a book\n";
+        String option4 = "4 Exit\n";
         BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals(option1 + option2, newCustomer.showAMainMenuOfOptions());
+        assertEquals(option1 + option2 + option3 + option4, newCustomer.showAMainMenuOfOptions());
     }
 
     @Test
     public void checkoutABook() {
-        String option1 = "List of books\n";
-        String option2 = "Exit\n";
         BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals(option1 + option2, newCustomer.showAMainMenuOfOptions());
+        newCustomer.getLibrary().checkoutBooks("9780134177304");
+        assertEquals(3, newCustomer.getLibrary().getQuantityOfBook("9780134177304"));
+    }
+
+    @Test
+    public void returnABook() {
+        BibliotecaApp newCustomer = new BibliotecaApp();
+        newCustomer.getLibrary().checkoutBooks("9780132345286");
+        newCustomer.getLibrary().returnBooks("9780132345286");
+        assertEquals(5, newCustomer.getLibrary().getQuantityOfBook("9780132345286"));
     }
 }

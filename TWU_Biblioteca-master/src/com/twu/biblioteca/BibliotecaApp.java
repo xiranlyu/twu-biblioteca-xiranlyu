@@ -6,6 +6,10 @@ import java.util.Scanner;
 public class BibliotecaApp {
     private Library library;
 
+    public Library getLibrary() {
+        return library;
+    }
+
     public BibliotecaApp() {
         library = new Library();
     }
@@ -38,12 +42,11 @@ public class BibliotecaApp {
             result.append(option).append("\n");
         }
         System.out.println(result.toString());
-        System.out.println("Please input the number of options to choose");
-        chooseAnOption();
         return result.toString();
     }
 
     public void chooseAnOption(){
+        System.out.println("Please input the number of options to choose");
         Scanner in = new Scanner(System.in);
         while(in.hasNext()) {
             String input = in.nextLine();
@@ -54,7 +57,7 @@ public class BibliotecaApp {
                 checkOutBooks();
                 break;
             } else if (input.contains("3")) {
-//                returnBooks();
+                returnBooks();
                 break;
             } else if (input.contains("4")) {
                 quitTheApplication();
@@ -69,34 +72,67 @@ public class BibliotecaApp {
     }
 
     public boolean checkOutBooks() {
-        System.out.println("Please input the ISBN of the book to be borrowed:");
+        System.out.println("Please input the ISBN of the book to be borrowed, or input 0 to see the main menu: ");
         Scanner in = new Scanner(System.in);
         String input = in.next();
-        for (Books book: library.getBooks()) {
-            if (input.equals(book.getIsbn()) && book.getQuantity() != 0) {
-                book.setQuantity(book.getQuantity() - 1);
-                successfulCheckout();
-                System.out.println(book.getQuantity() + " of this book left\n");
-                showAMainMenuOfOptions();
-                return true;
-            }
+        if (input.equals("0")) {
+            showAMainMenuOfOptions();
+            chooseAnOption();
+            return false;
+        } else if (library.checkoutBooks(input)) {
+            successfulCheckout();
+            showAMainMenuOfOptions();
+            chooseAnOption();
+            return true;
+        } else {
+            unsuccessfulCheckout();
+            return false;
         }
-        unsuccessfulCheckout();
-        return false;
     }
 
     public void successfulCheckout() {
-        System.out.println("Thank you! Enjoy the book\n");
+        System.out.println("Thank you! Enjoy the book.\n");
     }
 
     public void unsuccessfulCheckout() {
-        System.out.println("Sorry, that book is not available\n");
+        System.out.println("Sorry, that book is not available.\n");
         checkOutBooks();
+    }
+
+    public boolean returnBooks() {
+        System.out.println("Please input the ISBN of the book to be returned, or input 0 to see the main menu: ");
+        Scanner in = new Scanner(System.in);
+        String input = in.next();
+        if (input.equals("0")) {
+            showAMainMenuOfOptions();
+            chooseAnOption();
+            return false;
+        } else if (library.returnBooks(input)) {
+            successfulReturn();
+            showAMainMenuOfOptions();
+            chooseAnOption();
+            return true;
+        } else {
+            unsuccessfulReturn();
+            return false;
+        }
+    }
+
+    public void successfulReturn() {
+        System.out.println("Thank you for returning the book\n");
+    }
+
+    public void unsuccessfulReturn() {
+        System.out.println("That is not a valid book to return.\n");
+        returnBooks();
     }
 
     public static void main(String[] args) {
         BibliotecaApp newCustomer = new BibliotecaApp();
         newCustomer.welcome();
         newCustomer.showAMainMenuOfOptions();
+        newCustomer.chooseAnOption();
+        System.out.println(newCustomer.getLibrary().getQuantityOfBook("9780134177304"));
+        System.out.println(newCustomer.getLibrary().getQuantityOfBook("9780132345286"));
     }
 }
