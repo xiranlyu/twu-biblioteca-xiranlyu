@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class ExampleTest {
+    private Books headFirstJava = new Books("Head First Java", "Kathy Sierra, Bert Bates", 2003);
+    private Books effectiveJava = new Books("Effective Java", "Joshua Bloch", 2001);
+    private Books coreJave = new Books("Core Java Volume I", "Cay S. Horstmann", 2007);
 
     @Test
     public void viewWelcomeMessage() {
@@ -18,46 +21,44 @@ public class ExampleTest {
 
     @Test
     public void viewListOfBooks() {
-        ArrayList<Books> listOfBooks = new ArrayList<Books>();
-        listOfBooks.add(new Books("Head First Java", "Kathy Sierra, Bert Bates", 2003));
-        listOfBooks.add(new Books("Effective Java", "Joshua Bloch", 2001));
-        listOfBooks.add(new Books("Core Java Volume I", "Cay S. Horstmann", 2007));
-        StringBuilder result = new StringBuilder();
-        for (Books book: listOfBooks) {
-            result.append(book.getTitle()).append("\n");
-        }
         BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals(result.toString(), newCustomer.showListOfBooks(listOfBooks));
+        newCustomer.addBooks(headFirstJava);
+        newCustomer.addBooks(effectiveJava);
+        newCustomer.addBooks(coreJave);
+        assertEquals("Head First Java\nEffective Java\nCore Java Volume I\n", newCustomer.showListOfBooks());
     }
 
     @Test
     public void viewAuthorAndPublicationYearOnAllBooks() {
-        ArrayList<Books> listOfBooks = new ArrayList<Books>();
-        listOfBooks.add(new Books("Head First Java", "Kathy Sierra, Bert Bates", 2003));
-        listOfBooks.add(new Books("Effective Java", "Joshua Bloch", 2001));
-        listOfBooks.add(new Books("Core Java Volume I", "Cay S. Horstmann", 2007));
+        BibliotecaApp newCustomer = new BibliotecaApp();
+        newCustomer.addBooks(headFirstJava);
+        newCustomer.addBooks(effectiveJava);
+        newCustomer.addBooks(coreJave);
+        ArrayList<Books> books = new ArrayList<Books>();
+        books.add(headFirstJava);
+        books.add(effectiveJava);
+        books.add(coreJave);
         StringBuilder result = new StringBuilder();
-        for (Books book: listOfBooks) {
+        for (Books book: books) {
             result.append("title: ").append(book.getTitle()).
                     append(" author: ").append(book.getAuthor()).
                     append(" publication year: ").append(book.getPublicationYear()).append("\n");
         }
-        BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals(result.toString(), newCustomer.viewAuthorAndPublicationYearOnAllBooks(listOfBooks));
+        assertEquals(result.toString(), newCustomer.viewAuthorAndPublicationYearOnAllBooks());
     }
 
     @Test
     public void viewAMainMenuOfOptions() {
-        ArrayList<String> menuOfOptions = new ArrayList<String>();
+//        ArrayList<String> menuOfOptions = new ArrayList<String>();
         String option1 = "List of books\n";
         String option2 = "Exit\n";
-        menuOfOptions.add(option1);
-        menuOfOptions.add(option2);
-        StringBuilder menu = new StringBuilder();
-        for (String option: menuOfOptions) {
-            menu.append(option);
-        }
+//        menuOfOptions.add(option1);
+//        menuOfOptions.add(option2);
+//        StringBuilder menu = new StringBuilder();
+//        for (String option: menuOfOptions) {
+//            menu.append(option);
+//        }
         BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals(menu.toString(), newCustomer.showAMainMenuOfOptions());
+        assertEquals(option1 + option2, newCustomer.showAMainMenuOfOptions());
     }
 }

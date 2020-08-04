@@ -4,30 +4,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BibliotecaApp {
+    private Library library;
+
+    public BibliotecaApp() {
+        library = new Library();
+    }
+
     public String welcome() {
         String welcomeMsg = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
         System.out.println(welcomeMsg);
         return welcomeMsg;
     }
 
-    public String showListOfBooks(ArrayList<Books> listOfBooks){
-        StringBuilder result = new StringBuilder();
-        for (Books book: listOfBooks) {
-            result.append(book.getTitle()).append("\n");
-        }
-        System.out.println(result.toString());
-        return result.toString();
+    public void addBooks(Books book){
+        library.addBooks(book);
     }
 
-    public String viewAuthorAndPublicationYearOnAllBooks(ArrayList<Books> listOfBooks){
-        StringBuilder result = new StringBuilder();
-        for (Books book: listOfBooks) {
-            result.append("title: ").append(book.getTitle()).
-                    append(" author: ").append(book.getAuthor()).
-                    append(" publication year: ").append(book.getPublicationYear()).append("\n");
-        }
-        System.out.println(result.toString());
-        return result.toString();
+    public String showListOfBooks(){
+        return library.showListOfBooks();
+    }
+
+    public String viewAuthorAndPublicationYearOnAllBooks(){
+        return library.showAuthorAndPublicationYearOnAllBooks();
     }
 
     public String showAMainMenuOfOptions() {
@@ -44,12 +42,12 @@ public class BibliotecaApp {
         return result.toString();
     }
 
-    public void chooseAnOption(ArrayList<Books> listOfBooks){
+    public void chooseAnOption(){
         Scanner in = new Scanner(System.in);
         while(in.hasNext()) {
             String input = in.nextLine();
             if (input.equals("List of books")) {
-                showListOfBooks(listOfBooks);
+                library.showListOfBooks();
                 break;
             } else if (input.equals("Exit")) {
                 quitTheApplication();
@@ -63,15 +61,20 @@ public class BibliotecaApp {
         System.exit(0);
     }
 
-    public static void main(String[] args) {
-        ArrayList<Books> listOfBooks = new ArrayList<Books>();
-        listOfBooks.add(new Books("Head First Java", "Kathy Sierra, Bert Bates", 2003));
-        listOfBooks.add(new Books("Effective Java", "Joshua Bloch", 2001));
-        listOfBooks.add(new Books("Core Java Volume I", "Cay S. Horstmann", 2007));
+//    public boolean checkOut() {
+//        Scanner in = new Scanner(System.in);
+//        String input = in.nextLine();
+//
+//        return true;
+//    }
 
+    public static void main(String[] args) {
         BibliotecaApp newCustomer = new BibliotecaApp();
+        newCustomer.addBooks(new Books("Head First Java", "Kathy Sierra, Bert Bates", 2003));
+        newCustomer.addBooks(new Books("Effective Java", "Joshua Bloch", 2001));
+        newCustomer.addBooks(new Books("Core Java Volume I", "Cay S. Horstmann", 2007));
         newCustomer.welcome();
         newCustomer.showAMainMenuOfOptions();
-        newCustomer.chooseAnOption(listOfBooks);
+        newCustomer.chooseAnOption();
     }
 }
