@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class ExampleTest {
     private Books headFirstJava = new Books("Head First Java", "Kathy Sierra, Bert Bates", 2003);
     private Books effectiveJava = new Books("Effective Java", "Joshua Bloch", 2001);
-    private Books coreJave = new Books("Core Java Volume I", "Cay S. Horstmann", 2007);
+    private Books coreJava = new Books("Core Java Volume I", "Cay S. Horstmann", 2007);
 
     @Test
     public void viewWelcomeMessage() {
@@ -24,7 +23,7 @@ public class ExampleTest {
         BibliotecaApp newCustomer = new BibliotecaApp();
         newCustomer.addBooks(headFirstJava);
         newCustomer.addBooks(effectiveJava);
-        newCustomer.addBooks(coreJave);
+        newCustomer.addBooks(coreJava);
         assertEquals("Head First Java\nEffective Java\nCore Java Volume I\n", newCustomer.showListOfBooks());
     }
 
@@ -33,11 +32,11 @@ public class ExampleTest {
         BibliotecaApp newCustomer = new BibliotecaApp();
         newCustomer.addBooks(headFirstJava);
         newCustomer.addBooks(effectiveJava);
-        newCustomer.addBooks(coreJave);
+        newCustomer.addBooks(coreJava);
         ArrayList<Books> books = new ArrayList<Books>();
         books.add(headFirstJava);
         books.add(effectiveJava);
-        books.add(coreJave);
+        books.add(coreJava);
         StringBuilder result = new StringBuilder();
         for (Books book: books) {
             result.append("title: ").append(book.getTitle()).
