@@ -23,15 +23,14 @@ SELECT movie.title FROM  movie
      WHERE movie.id not in (SELECT checkout_item.movie_id FROM checkout_item WHERE movie.id = checkout_item.movie_id);
 ```
 > Answer: <br>
-BOOKS: <br>
+> BOOKS: <br>
 Fellowship of the Ring<br>
 1984<br>
 Tom Sawyer<br>
 Catcher in the Rye<br>
 To Kill a Mockingbird<br>
-Domain Driven Design<br><br>
-
-MOVIES: <br>
+Domain Driven Design<br>
+> MOVIES: <br>
 Thin Red Line<br>
 Crouching Tiger, Hidden Dragon <br>
 Lawrence of Arabia<br>
