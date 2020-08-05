@@ -34,7 +34,7 @@ public class BibliotecaApp {
         System.out.println("Please enter your library number:");
         Scanner in = new Scanner(System.in);
         String input1 = in.next();
-        for (Users user: accountManage.getUsers()) {
+        for (User user: accountManage.getUsers()) {
             if (input1.equals(user.getLibraryNumber())) {
                 userExists = true;
                 System.out.println("User found. Please enter your password:");

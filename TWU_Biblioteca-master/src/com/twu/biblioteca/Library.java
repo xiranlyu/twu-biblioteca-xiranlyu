@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Library {
-    private List<Books> books = new ArrayList<>(Arrays.asList(new Books("Head First Java", "Kathy Sierra, Bert Bates", 2003,
-            "9780596004651", 5), new Books("Effective Java", "Joshua Bloch", 2001,
-            "9780132345286", 5), new Books("Core Java Volume I", "Cay S. Horstmann", 2007,
+    private List<Book> books = new ArrayList<>(Arrays.asList(new Book("Head First Java", "Kathy Sierra, Bert Bates", 2003,
+            "9780596004651", 5), new Book("Effective Java", "Joshua Bloch", 2001,
+            "9780132345286", 5), new Book("Core Java Volume I", "Cay S. Horstmann", 2007,
             "9780134177304", 4)));
 
     private List<BooksOnBorrow> borrowedBooks = new ArrayList<>();
@@ -27,7 +27,7 @@ public class Library {
     }
 
     public int getQuantityOfBook(String isbn) {
-        for (Books book: books) {
+        for (Book book: books) {
             if (book.getIsbn().equals(isbn)) {
                 return book.getQuantity();
             }
@@ -37,7 +37,7 @@ public class Library {
 
     public String showListOfBooks() {
         StringBuilder list = new StringBuilder();
-        for (Books book : books) {
+        for (Book book : books) {
             list.append(book.getTitle()).append("\n");
         }
         System.out.println(list.toString());
@@ -46,7 +46,7 @@ public class Library {
 
     public String showAuthorAndPublicationYearOnAllBooks() {
         StringBuilder result = new StringBuilder();
-        for (Books book : books) {
+        for (Book book : books) {
             result.append("title: ").append(book.getTitle()).
                     append(" author: ").append(book.getAuthor()).
                     append(" publication year: ").append(book.getPublicationYear()).append("\n");
@@ -56,7 +56,7 @@ public class Library {
     }
 
     public boolean checkoutBooks(String isbn, String user) {
-        for (Books book: books) {
+        for (Book book: books) {
             if (isbn.equals(book.getIsbn()) && book.getQuantity() > 0) {
                 book.setQuantity(book.getQuantity() - 1);
                 borrowedBooks.add(new BooksOnBorrow(user, book.getTitle(), isbn, 1));
@@ -67,7 +67,7 @@ public class Library {
     }
 
     public boolean returnBooks(String isbn) {
-        for (Books book: books) {
+        for (Book book: books) {
             if (isbn.equals(book.getIsbn())) {
                 book.setQuantity(book.getQuantity() + 1);
                 return true;

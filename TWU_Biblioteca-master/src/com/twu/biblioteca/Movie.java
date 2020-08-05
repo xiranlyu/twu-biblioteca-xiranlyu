@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-public class Movies {
+public class Movie {
     private String title;
     private String director;
     private int year;
@@ -8,7 +8,7 @@ public class Movies {
     private String imdb;
     private int quantity;
 
-    public Movies(String title, String director, int year, double movieRating, String imdb, int quantity) {
+    public Movie(String title, String director, int year, double movieRating, String imdb, int quantity) {
         this.title = title;
         this.director = director;
         this.year = year;

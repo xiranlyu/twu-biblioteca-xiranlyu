@@ -2,7 +2,7 @@ package com.twu.biblioteca;
 
 import java.util.HashMap;
 
-public class Users {
+public class User {
     private String libraryNumber;
     private String password;
     private String name;
@@ -11,7 +11,7 @@ public class Users {
     private boolean status = false;
     private String holdingItems;
 
-    public Users(String libraryNumber, String password, String name, String email, String phoneNumber) {
+    public User(String libraryNumber, String password, String name, String email, String phoneNumber) {
         this.libraryNumber = libraryNumber;
         this.password = password;
         this.name = name;
