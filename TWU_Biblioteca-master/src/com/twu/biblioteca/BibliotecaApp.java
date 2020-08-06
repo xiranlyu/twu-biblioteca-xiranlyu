@@ -24,12 +24,12 @@ public class BibliotecaApp {
         this.currentUser = currentUser;
     }
 
-    public void welcome() {
+    private void welcome() {
         String welcomeMsg = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
         System.out.println(welcomeMsg);
     }
 
-    public void userLogin() {
+    private void userLogin() {
         boolean userExists = false;
         System.out.println("Please enter your library number:");
         Scanner in = new Scanner(System.in);
@@ -93,7 +93,7 @@ public class BibliotecaApp {
         return result.toString();
     }
 
-    public void chooseAnOption(){
+    private void chooseAnOption(){
         System.out.println("Please input the number of options to choose");
         Scanner in = new Scanner(System.in);
         while(in.hasNext()) {
@@ -142,7 +142,7 @@ public class BibliotecaApp {
         }
     }
 
-    public void quitTheApplication() {
+    private void quitTheApplication() {
         System.exit(0);
     }
 
@@ -160,16 +160,16 @@ public class BibliotecaApp {
         }
     }
 
-    public void successfulCheckout() {
+    private void successfulCheckout() {
         System.out.println("Thank you! Enjoy the book/movie.\n");
     }
 
-    public void unsuccessfulCheckoutABook() {
+    private void unsuccessfulCheckoutABook() {
         System.out.println("Sorry, that book is not available.\n");
         checkOutBooks();
     }
 
-    public void unsuccessfulCheckoutAMovie() {
+    private void unsuccessfulCheckoutAMovie() {
         System.out.println("Sorry, that movie is not available.\n");
         checkOutMovies();
     }
@@ -190,11 +190,11 @@ public class BibliotecaApp {
         }
     }
 
-    public void successfulReturn() {
+    private void successfulReturn() {
         System.out.println("Thank you for returning the book\n");
     }
 
-    public void unsuccessfulReturn() {
+    private void unsuccessfulReturn() {
         System.out.println("That is not a valid book to return.\n");
         returnBooks();
     }

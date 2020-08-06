@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class FilmArchive {
-    private List<Movie> movies = new ArrayList<Movie>(Arrays.asList(new Movie("Interstellar", "Christopher Nolan", 2014,
+    private final List<Movie> movies = new ArrayList<Movie>(Arrays.asList(new Movie("Interstellar", "Christopher Nolan", 2014,
             9.4, "0816692", 3), new Movie("Billy Lynn's Long Halftime Walk", "Ang Lee", 2016,
             8.4, "2513074", 1), new Movie("1917", "Sam Mendes", 2019,
             8.5, "8579674", 2)));
