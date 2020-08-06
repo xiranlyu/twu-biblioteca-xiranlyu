@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,17 +24,11 @@ public class DisplayTest {
     }
 
     @Test
-    public void viewListOfBooks() {
-        BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals("Head First Java\nEffective Java\nCore Java Volume I\n", newCustomer.getConsole().showListOfBooks());
-    }
-
-    @Test
     public void viewAuthorAndPublicationYearOnAllBooks() {
         BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals("title: Head First Java author: Kathy Sierra, Bert Bates publication year: 2003\n" +
-                "title: Effective Java author: Joshua Bloch publication year: 2001\n" +
-                "title: Core Java Volume I author: Cay S. Horstmann publication year: 2007\n",
+        assertEquals("title: Head First Java author: Kathy Sierra, Bert Bates publication year: 2003 ISBN: 9780596004651\n" +
+                "title: Effective Java author: Joshua Bloch publication year: 2001 ISBN: 9780132345286\n" +
+                "title: Core Java Volume I author: Cay S. Horstmann publication year: 2007 ISBN: 9780134177304\n",
                 newCustomer.getConsole().viewAuthorAndPublicationYearOnAllBooks());
     }
 
@@ -47,9 +40,10 @@ public class DisplayTest {
         String option4 = "4 List of movies\n";
         String option5 = "5 Checkout a movie\n";
         String option6 = "6 View my info\n";
-        String option7 = "7 Exit\n";
+        String option7 = "7 View borrow history\n";
+        String option8 = "8 Exit\n";
         BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals(option1 + option2 + option3 + option4 + option5 + option6 + option7,
+        assertEquals(option1 + option2 + option3 + option4 + option5 + option6 + option7 + option8,
                 newCustomer.getConsole().showAMainMenuOfOptions());
     }
 
@@ -65,8 +59,8 @@ public class DisplayTest {
     public void viewBooksOnBorrow() {
         BibliotecaApp newCustomer = new BibliotecaApp();
         newCustomer.getConsole().setCurrentUser("admin");
-        newCustomer.getConsole().getLibrary().checkoutBooks("9780596004651", "admin");
-        assertEquals("libraryNumber: admin borrowed: Head First Java isbn: 9780596004651 number of borrow: 1",
+        newCustomer.getConsole().checkoutBooks("9780596004651", "admin");
+        assertEquals("libraryNumber: admin name: admin borrowed: Head First Java",
                 newCustomer.getConsole().getBorrowHistory("admin"));
     }
 

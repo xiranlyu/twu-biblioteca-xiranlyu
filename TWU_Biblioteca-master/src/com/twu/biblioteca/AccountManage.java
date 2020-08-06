@@ -14,6 +14,23 @@ public class AccountManage {
 
     public List<User> getUsers() { return users; }
 
+    private List<User> userRecord = new ArrayList<>();
+    public List<User> getUserRecord() { return userRecord; }
+
+
+    public String showRecord(String userID) {
+        StringBuilder result = new StringBuilder();
+        for (User user: userRecord) {
+            if (userID.equals(user.getLibraryNumber())) {
+                result.append("libraryNumber: ").append(userID).
+                        append(" name: ").append(user.getName()).
+                        append(" borrowed: ").append(user.getHoldingItems());
+            }
+        }
+        System.out.println(result.toString());
+        return result.toString();
+    }
+
     public String showUserInfo(String libraryNumber) {
         StringBuilder result = new StringBuilder();
         for (User user: users) {

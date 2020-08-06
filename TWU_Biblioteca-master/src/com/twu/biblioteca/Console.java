@@ -15,6 +15,7 @@ public class Console {
         accountManage = new AccountManage();
     }
 
+    public String getCurrentUser() { return currentUser; }
     public void setCurrentUser(String currentUser) {
         this.currentUser = currentUser;
     }
@@ -65,7 +66,8 @@ public class Console {
         String option4 = "4 List of movies";
         String option5 = "5 Checkout a movie";
         String option6 = "6 View my info";
-        String option7 = "7 Exit";
+        String option7 = "7 View borrow history";
+        String option8 = "8 Exit";
         menuOfOptions.add(option1);
         menuOfOptions.add(option2);
         menuOfOptions.add(option3);
@@ -73,6 +75,7 @@ public class Console {
         menuOfOptions.add(option5);
         menuOfOptions.add(option6);
         menuOfOptions.add(option7);
+        menuOfOptions.add(option8);
         StringBuilder result = new StringBuilder();
         for (String option: menuOfOptions) {
             result.append(option).append("\n");
@@ -80,8 +83,6 @@ public class Console {
         System.out.println(result.toString());
         return result.toString();
     }
-
-    public String showListOfBooks(){ return library.showListOfBooks(); }
 
     public String showListOfMovies(){ return filmArchive.showMovieList(); }
 
@@ -93,7 +94,7 @@ public class Console {
         while(in.hasNext()) {
             String input = in.nextLine();
             if (input.contains("1")) {
-                showListOfBooks();
+                library.showAuthorAndPublicationYearOnAllBooks();
                 showAMainMenuOfOptions();
                 chooseAnOption();
                 break;
@@ -113,8 +114,15 @@ public class Console {
                 break;
             } else if (input.contains("6")) {
                 accountManage.showUserInfo(currentUser);
+                showAMainMenuOfOptions();
+                chooseAnOption();
                 break;
             } else if (input.contains("7")) {
+                getBorrowHistory(getCurrentUser());
+                showAMainMenuOfOptions();
+                chooseAnOption();
+                break;
+            } else if (input.contains("8")) {
                 quitTheApplication();
             } else {
                 System.out.println("Please select a valid option!");
@@ -131,6 +139,8 @@ public class Console {
             chooseAnOption();
         } else if (filmArchive.checkoutMovies(input)) {
             successfulCheckout();
+            chooseAnOption();
+            showAMainMenuOfOptions();
         } else {
             unsuccessfulCheckoutAMovie();
         }
@@ -143,15 +153,35 @@ public class Console {
         if (input.equals("0")) {
             showAMainMenuOfOptions();
             chooseAnOption();
-        } else if (library.checkoutBooks(input, currentUser)) {
+        } else if (checkoutBooks(input, currentUser)) {
             successfulCheckout();
         } else {
             unsuccessfulCheckoutABook();
         }
     }
 
+    public boolean checkoutBooks(String input, String currentUser) {
+        String title = "";
+        for (Book book: library.getBooks()) {
+            if (input.equals(book.getIsbn()) && book.getQuantity() > 0) {
+                book.setQuantity(book.getQuantity() - 1);
+                title = book.getTitle();
+            }
+        }
+        for (User user: accountManage.getUsers()) {
+            if (currentUser.equals(user.getLibraryNumber())) {
+                accountManage.getUserRecord().add(
+                        new User(currentUser, user.getPassword(), user.getName(), user.getEmail(), user.getPhoneNumber(), title));
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void successfulCheckout() {
         System.out.println("Thank you! Enjoy the book/movie.\n");
+        showAMainMenuOfOptions();
+        chooseAnOption();
     }
 
     private void unsuccessfulCheckoutABook() {
@@ -171,13 +201,23 @@ public class Console {
         if (input.equals("0")) {
             showAMainMenuOfOptions();
             chooseAnOption();
-        } else if (library.returnBooks(input)) {
+        } else if (returnBooks(input)) {
             successfulReturn();
             showAMainMenuOfOptions();
             chooseAnOption();
         } else {
             unsuccessfulReturn();
         }
+    }
+
+    public boolean returnBooks(String isbn) {
+        for (Book book: library.getBooks()) {
+            if (isbn.equals(book.getIsbn())) {
+                book.setQuantity(book.getQuantity() + 1);
+                return true;
+            }
+        }
+        return false;
     }
 
     private void successfulReturn() {
@@ -191,7 +231,7 @@ public class Console {
 
     public String getBorrowHistory(String libraryNumber) {
         if (currentUser != null && currentUser.equals("admin")) {
-            return getLibrary().showBorrowedBooks(libraryNumber);
+            return accountManage.showRecord(libraryNumber);
         } else {
             System.out.println("You are not authorized to view this.");
             return "You are not authorized to view this.";
