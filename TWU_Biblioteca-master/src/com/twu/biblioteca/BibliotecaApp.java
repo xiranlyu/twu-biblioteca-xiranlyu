@@ -24,7 +24,7 @@ public class BibliotecaApp {
         this.currentUser = currentUser;
     }
 
-    private void welcome() {
+    public void welcome() {
         String welcomeMsg = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
         System.out.println(welcomeMsg);
     }
