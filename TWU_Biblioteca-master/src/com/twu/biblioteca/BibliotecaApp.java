@@ -1,7 +1,7 @@
 package com.twu.biblioteca;
 
 public class BibliotecaApp {
-    private Console console;
+    private final Console console;
 
     public BibliotecaApp() { console = new Console(); }
     public Console getConsole() { return console; }

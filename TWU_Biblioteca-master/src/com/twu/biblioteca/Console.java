@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Console {
@@ -58,75 +57,83 @@ public class Console {
         System.out.println("Please enter the number to choose:");
     }
 
-    public String showAMainMenuOfOptions() {
-        ArrayList<String> menuOfOptions = new ArrayList<>();
-        String option1 = "1 List of books";
-        String option2 = "2 Checkout a book";
-        String option3 = "3 Return a book";
-        String option4 = "4 List of movies";
-        String option5 = "5 Checkout a movie";
-        String option6 = "6 View my info";
-        String option7 = "7 View borrow history";
-        String option8 = "8 Exit";
-        menuOfOptions.add(option1);
-        menuOfOptions.add(option2);
-        menuOfOptions.add(option3);
-        menuOfOptions.add(option4);
-        menuOfOptions.add(option5);
-        menuOfOptions.add(option6);
-        menuOfOptions.add(option7);
-        menuOfOptions.add(option8);
-        StringBuilder result = new StringBuilder();
-        for (String option: menuOfOptions) {
-            result.append(option).append("\n");
-        }
-        System.out.println(result.toString());
-        return result.toString();
-    }
-
     public String showListOfMovies(){ return filmArchive.showMovieList(); }
 
     public String viewAuthorAndPublicationYearOnAllBooks(){ return library.showAuthorAndPublicationYearOnAllBooks(); }
 
-    private void chooseAnOption(){
+    Command[] commands = {
+            new Command("0 Back to menu") {
+                @Override public void execute() {
+                    showAMainMenuOfOptions();
+                    chooseAnOption();
+                }
+            },
+            new Command("1 List of books") {
+                @Override public void execute() {
+                    library.showAuthorAndPublicationYearOnAllBooks();
+                    showAMainMenuOfOptions();
+                    chooseAnOption();
+                }
+            },
+            new Command("2 Checkout a book") {
+                @Override public void execute() {
+                    checkOutBooks();
+                }
+            },
+            new Command("3 Return a book") {
+                @Override public void execute() {
+                    returnBooks();
+                }
+            },
+            new Command("4 List of movies") {
+                @Override public void execute() {
+                    showListOfMovies();
+                    showAMainMenuOfOptions();
+                    chooseAnOption();
+                }
+            },
+            new Command("5 Checkout a movie") {
+                @Override public void execute() {
+                    checkOutMovies();
+                }
+            },
+            new Command("6 View my info") {
+                @Override public void execute() {
+                    accountManage.showUserInfo(currentUser);
+                    showAMainMenuOfOptions();
+                    chooseAnOption();
+                }
+            },
+            new Command("7 View borrow history") {
+                @Override public void execute() {
+                    getBorrowHistory(getCurrentUser());
+                    showAMainMenuOfOptions();
+                    chooseAnOption();
+                }
+            },
+            new Command("8 Exit") {
+                @Override public void execute() {
+                    quitTheApplication();
+                }
+            }
+    };
+
+    public void showAMainMenuOfOptions() {
+        for (Command command: commands) {
+            System.out.println(command);
+        }
+    }
+
+    private void chooseAnOption() {
         prompt();
         Scanner in = new Scanner(System.in);
-        while(in.hasNext()) {
-            String input = in.nextLine();
-            if (input.contains("1")) {
-                library.showAuthorAndPublicationYearOnAllBooks();
-                showAMainMenuOfOptions();
-                chooseAnOption();
-                break;
-            } else if (input.contains("2")) {
-                checkOutBooks();
-                break;
-            } else if (input.contains("3")) {
-                returnBooks();
-                break;
-            } else if (input.contains("4")) {
-                showListOfMovies();
-                showAMainMenuOfOptions();
-                chooseAnOption();
-                break;
-            } else if (input.contains("5")) {
-                checkOutMovies();
-                break;
-            } else if (input.contains("6")) {
-                accountManage.showUserInfo(currentUser);
-                showAMainMenuOfOptions();
-                chooseAnOption();
-                break;
-            } else if (input.contains("7")) {
-                getBorrowHistory(getCurrentUser());
-                showAMainMenuOfOptions();
-                chooseAnOption();
-                break;
-            } else if (input.contains("8")) {
-                quitTheApplication();
-            } else {
-                System.out.println("Please select a valid option!");
-            }
+        int input = in.nextInt();
+        if (input > 8 || input < 0) {
+            System.out.println("This is an invalid option!");
+            showAMainMenuOfOptions();
+            chooseAnOption();
+        } else {
+            commands[input].execute();
         }
     }
 

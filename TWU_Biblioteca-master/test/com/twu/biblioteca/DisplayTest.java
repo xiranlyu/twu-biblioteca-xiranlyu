@@ -34,6 +34,7 @@ public class DisplayTest {
 
     @Test
     public void viewAMainMenuOfOptions() {
+        String option0 = "0 Back to menu\n";
         String option1 = "1 List of books\n";
         String option2 = "2 Checkout a book\n";
         String option3 = "3 Return a book\n";
@@ -43,8 +44,9 @@ public class DisplayTest {
         String option7 = "7 View borrow history\n";
         String option8 = "8 Exit\n";
         BibliotecaApp newCustomer = new BibliotecaApp();
-        assertEquals(option1 + option2 + option3 + option4 + option5 + option6 + option7 + option8,
-                newCustomer.getConsole().showAMainMenuOfOptions());
+        newCustomer.getConsole().showAMainMenuOfOptions();
+        assertEquals(option0 + option1 + option2 + option3 + option4 + option5 + option6 + option7 + option8,
+                outContent.toString());
     }
 
     @Test
